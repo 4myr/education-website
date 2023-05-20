@@ -6,12 +6,12 @@ RUN apt-get update -y && apt-get install -y openssl libonig-dev libpng-dev zlib1
 
 RUN docker-php-ext-install mysqli pdo pdo_mysql gd sockets opcache
 
-#RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 WORKDIR /var/www
 COPY . /var/www
 
-RUN php composer.phar install
+RUN composer install
 
 # Add user for laravel application
 RUN groupadd -g 1000 www
