@@ -1,0 +1,99 @@
+version: '3'
+services:
+    php:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: php
+        container_name: php
+        restart: unless-stopped
+        tty: true
+        environment:
+            SERVICE_NAME: back
+            SERVICE_TAGS: dev
+        working_dir: /var/www
+        volumes:
+            - ./back:/var/www
+            - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+            - ./docker/php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+            - ./docker/php/opcache-blacklist.txt:/usr/local/etc/php/conf.d/opcache-blacklist.txt
+            - ./vendor:/var/www/vendor
+        networks:
+            - app-network
+        depends_on:
+            - mysql
+            - redis
+    webserver:
+        image: nginx:alpine
+        container_name: webserver
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "80:80"
+            - "443:443"
+        networks:
+            - app-network
+        volumes:
+            - ./back:/var/www
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+            - "./public:/var/www/html/public:ro"
+            - "./storage/app:/var/www/html/storage/app:ro"
+            - ./vendor:/var/www/vendor
+        depends_on:
+            - mysql
+            - redis
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+#    mysql:
+#        image: mysql:8.0
+#        ports:
+#            - 3306:3306
+#        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --authentication_policy=mysql_native_password --default-authentication-plugin=mysql_native_password
+#        environment:
+#            MYSQL_USERNAME: "root"
+#            MYSQL_ROOT_PASSWORD: "tuba.Vowel.Monetize.Fade.hardship.reputably3.0Uncolored.tinsel.Bitten.1Negation.canned.exclusion.9thumping.bytes.cosigner"
+#        volumes:
+#            - ./docker/provision/mysql/init:/docker-entrypoint-initdb.d
+#            - 'mysql-data:/var/lib/mysql'
+#        healthcheck:
+#            test: "mysqladmin ping -h localhost"
+#            interval: 1s
+#            timeout: 1s
+#            retries: 60
+#        restart: always
+#        networks:
+#            - app-network
+#    phpmyadmin:
+#        image: phpmyadmin
+#        restart: always
+#        ports:
+#            - 8080:80
+#        environment:
+#            PMA_HOST: mysql
+#            UPLOAD_LIMIT: 300M
+#        networks:
+#            - app-network
+#        depends_on:
+#            - mysql
+#    redis:
+#        image: 'redis:alpine'
+#        restart: always
+#        ports:
+#            - 6379:6379
+#        volumes:
+#            - 'redis-data:/data'
+#        healthcheck:
+#            test: [ "CMD", "redis-cli", "ping" ]
+#            retries: 3
+#            timeout: 5s
+#        networks:
+#            - app-network
+#volumes:
+#    mysql-data:
+#        driver: local
+#    redis-data:
+#        driver: local
+
+networks:
+    app-network:
+        driver: bridge
