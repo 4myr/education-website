@@ -2,10 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Teacher extends Model
+
+class Teacher extends Authenticatable
 {
-    use Authenticatable;
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'mobile',
+        'password',
+        'approved'
+    ];
+
+    public function setPasswordAttribute($value): void
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
 }

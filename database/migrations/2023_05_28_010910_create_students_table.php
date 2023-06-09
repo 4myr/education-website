@@ -9,13 +9,20 @@ return new class extends Migration {
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('student_id')->nullable();
 
-            $table->unsignedBigInteger('user_id');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+
+            $table->bigInteger('student_id')->nullable();
+
+            $table->string('mobile')->unique();
+
+            $table->string('password');
+            $table->string('remember_token')->nullable();
+
+            $table->boolean('approved')->default(false);
 
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

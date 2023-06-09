@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html direction="rtl" dir="rtl" style="direction: rtl" >
 	<head><base href="../../../"/>
-		<title>{{ env('APP_NAME') }} | ورود اساتید</title>
+		<title>{{ env('APP_NAME') }} | ثبت نام اساتید</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta property="og:locale" content="en_US" />
@@ -13,7 +13,9 @@
 		<link href="{{ asset("/metronic/assets/css/style.bundle.rtl.css") }}" rel="stylesheet" type="text/css" />
 	</head>
 	<body id="kt_body" class="app-blank app-blank bgi-size-cover bgi-position-center bgi-no-repeat">
-		<script>var defaultThemeMode = "light"; var themeMode; if ( document.documentElement ) { if ( document.documentElement.hasAttribute("data-theme-mode")) { themeMode = document.documentElement.getAttribute("data-theme-mode"); } else { if ( localStorage.getآیتم("data-theme") !== null ) { themeMode = localStorage.getآیتم("data-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-theme", themeMode); }</script>
+		<script>var defaultThemeMode = "light"; var themeMode; if ( document.documentElement ) { if ( document.documentElement.hasAttribute("data-theme-mode")) { themeMode = document
+                .documentElement.getAttribute("data-theme-mode"); } else { if ( localStorage.getItem("data-theme") !== null ) { themeMode = localStorage.getItem("data-theme"); } else { themeMode =
+                defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-theme", themeMode); }</script>
 		<div class="d-flex flex-column flex-root" id="kt_app_root">
 			<style>body { background-image: url('{{ asset("/metronic/assets/media/bg4.jpg") }}'); } [data-theme="dark"] body { background-image: url('{{ asset("/metronic/assets/media/auth/bg4-dark
 			.jpg") }}');

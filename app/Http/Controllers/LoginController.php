@@ -8,6 +8,11 @@ class LoginController extends Controller
 {
     public function index(string $type)
     {
+        if ($type == 'student' && \Auth::guard('student')->check())
+            return redirect()->route('panel.student.index');
+        else if ($type == 'teacher' && \Auth::guard('teacher')->check())
+            return redirect()->route('panel.teacher.index');
+
         return view('panel.' . $type . '.login.index', compact('type'));
     }
 
@@ -15,10 +20,23 @@ class LoginController extends Controller
     {
         switch ($type) {
             case 'teacher': return $this->teacherLogin($request);
+            case 'student': return $this->studentLogin($request);
         }
     }
 
     private function teacherLogin(Request $request)
+    {
+        $loginResult = \Auth::guard('teacher')->attempt([
+            'mobile' => $request->get('mobile'),
+            'password' => $request->get('password')
+        ]);
+
+        if ($loginResult)
+            return redirect()->route('panel.teacher.index');
+        return back()->with('error', 'شماره موبایل یا رمز عبور صحیح نیست!');
+    }
+
+    private function studentLogin(Request $request)
     {
         $loginResult = \Auth::guard('teacher')->attempt([
             'mobile' => $request->get('mobile'),

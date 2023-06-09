@@ -1,4 +1,4 @@
-@extends('panel.login-layout')
+@extends('panel.auth-layout')
 
 @section('form')
     <form class="form w-100" novalidate="novalidate" action="{{ route('login.do', $type) }}" method="post">
@@ -31,6 +31,6 @@
             </button>
         </div>
         <div class="text-gray-500 text-center fw-semibold fs-6">می خواهید استاد باشید؟
-        <a href="#" class="link-primary">ثبت نام</a></div>
+        <a href="{{ route('register', $type) }}" class="link-primary">ثبت نام</a></div>
     </form>
 @endsection
