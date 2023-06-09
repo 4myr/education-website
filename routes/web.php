@@ -15,4 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
 
-Route::get('/login/{type}', [\App\Http\Controllers\LoginController::class, 'index'])->name('login');
+Route::group(['prefix' => 'panel'], function() {
+    Route::get('/login/{type}', [\App\Http\Controllers\LoginController::class, 'index'])->name('login');
+    Route::post('/login/{type}', [\App\Http\Controllers\LoginController::class, 'login'])->name('login.do');
+});
