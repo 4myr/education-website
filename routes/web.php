@@ -22,7 +22,26 @@ Route::group(['prefix' => 'panel'], function() {
     Route::get('/register/{type}', [\App\Http\Controllers\RegisterController::class, 'index'])->name('register');
     Route::post('/register/{type}', [\App\Http\Controllers\RegisterController::class, 'register'])->name('register.do');
 
-    Route::group(['prefix' => 'teacher'], function() {
+    Route::group(['prefix' => 'teacher', 'middleware' => 'auth:teacher'], function() {
         Route::get('/', [\App\Http\Controllers\Teacher\DashboardController::class, 'index'])->name('panel.teacher.index');
+    });
+
+    Route::group(['prefix' => 'student', 'middleware' => 'auth:student'], function() {
+        Route::get('/', [\App\Http\Controllers\Student\DashboardController::class, 'index'])->name('panel.student.index');
+    });
+
+    Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
+        Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('panel.admin.index');
+
+        Route::resource('/news', \App\Http\Controllers\Admin\NewsController::class)->names([
+            'index' => 'panel.admin.news.index',
+            'create' => 'panel.admin.news.create',
+            'store' => 'panel.admin.news.store',
+            'show' => 'panel.admin.news.show',
+            'edit' => 'panel.admin.news.edit',
+            'update' => 'panel.admin.news.update',
+            'destroy' => 'panel.admin.news.destroy',
+        ]);
+
     });
 });

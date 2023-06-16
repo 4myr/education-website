@@ -36,13 +36,17 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'student' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'students',
         ],
         'teacher' => [
             'driver' => 'session',
             'provider' => 'teachers',
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
         ],
     ],
 
@@ -64,13 +68,17 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'students' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Student::class,
         ],
         'teachers' => [
             'driver' => 'eloquent',
             'model' => App\Models\Teacher::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [
@@ -99,8 +107,14 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'students' => [
+            'provider' => 'students',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'admins' => [
+            'provider' => 'admins',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

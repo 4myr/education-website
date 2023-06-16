@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html direction="rtl" dir="rtl" style="direction: rtl" >
 	<head><base href="../../../"/>
-		<title>{{ env('APP_NAME') }} | ثبت نام اساتید</title>
+		<title>{{ env('APP_NAME') }} | ثبت نام</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta property="og:locale" content="en_US" />
