@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<link href="{{ asset("/metronic/assets/plugins/global/plugins.bundle.rtl.css") }} " rel="stylesheet" type="text/css" />
 		<link href="{{ asset("/metronic/assets/css/style.bundle.rtl.css") }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset("/metronic/assets/css/custom.css") }}" rel="stylesheet" type="text/css" />
 	</head>
 	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed toolbar-tablet-and-mobile-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
 
@@ -180,13 +181,11 @@
 										<li class="breadcrumb-item text-dark">پیش فرض</li>
 									</ul>
 								</div>
-								<div class="d-flex align-items-center py-1">
-									<a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button">ساختن</a>
-								</div>
 							</div>
 						</div>
 						<div class="post d-flex flex-column-fluid" id="kt_post">
 							<div id="kt_content_container" class="container-fluid">
+                                @include('partials.alerts')
                                 @yield('body')
 							</div>
 						</div>
@@ -221,6 +220,7 @@
 		<script src="{{ asset("/metronic/assets/js/scripts.bundle.js") }}"></script>
 		<script src="{{ asset("/metronic/assets/js/widgets.bundle.js") }}"></script>
 		<script src="{{ asset("/metronic/assets/js/custom/widgets.js") }}"></script>
+        @yield('js')
 	</body>
 
 </html>

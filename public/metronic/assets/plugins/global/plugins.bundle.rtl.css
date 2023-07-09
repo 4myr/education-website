@@ -4624,7 +4624,7 @@ span.flatpickr-weekday {
 .ql-snow .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg {
   position: absolute;
   margin-top: -9px;
-  right: 0;
+  left: 0;
   top: 50%;
   width: 18px;
 }
@@ -4639,7 +4639,7 @@ span.flatpickr-weekday {
 }
 
 .ql-snow .ql-picker.ql-header {
-  width: 98px;
+  width: 72px;
 }
 
 .ql-snow .ql-picker.ql-header .ql-picker-label::before,
@@ -33322,7 +33322,7 @@ i[class^=fonticon-]:before, i[class*=" fonticon-"]:before {
   mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 11'%3e%3cpath fill='var%28--kt-component-hover-color%29' d='M4.89557 6.49823L2.79487 4.26513C2.26967 3.70683 1.38251 3.70683 0.857309 4.26513C0.375593 4.77721 0.375593 5.57574 0.857309 6.08781L4.74989 10.2257C5.14476 10.6455 5.81176 10.6455 6.20663 10.2257L13.1427 2.85252C13.6244 2.34044 13.6244 1.54191 13.1427 1.02984C12.6175 0.471537 11.7303 0.471536 11.2051 1.02984L6.06096 6.49823C5.74506 6.83403 5.21146 6.83403 4.89557 6.49823Z'/%3e%3c/svg%3e");
   mask-position: center;
   -webkit-mask-position: center;
-  right: 1.25rem;
+  left: 1.25rem;
 }
 .select2-container--bootstrap5 .select2-dropdown .select2-results__option.select2-results__option--disabled {
   color: var(--kt-gray-400);
