@@ -40,8 +40,10 @@ Route::group(['prefix' => 'panel'], function() {
             'show' => 'panel.admin.news.show',
             'edit' => 'panel.admin.news.edit',
             'update' => 'panel.admin.news.update',
-            'destroy' => 'panel.admin.news.destroy',
-        ]);
+        ])->except('destroy');
+        
+        Route::get('/news/{news}/delete', [\App\Http\Controllers\Admin\NewsController::class, 'destroy'])
+            ->name('panel.admin.news.destroy');
 
     });
 });
