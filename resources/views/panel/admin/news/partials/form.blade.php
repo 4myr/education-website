@@ -84,68 +84,70 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    "use strict";
+@section('js')
+    <script type="text/javascript">
+        "use strict";
 
-    // Class definition
-    var KTAppEcommerceSaveProduct = function () {
+        // Class definition
+        var KTAppEcommerceSaveProduct = function () {
 
-        // Private functions
+            // Private functions
 
-        // Init quill editor
-        const initQuill = () => {
-            // Define all elements for quill editor
-            const elements = [
-                '#kt_ecommerce_add_product_description',
-                '#kt_ecommerce_add_product_meta_description'
-            ];
+            // Init quill editor
+            const initQuill = () => {
+                // Define all elements for quill editor
+                const elements = [
+                    '#kt_ecommerce_add_product_description',
+                    '#kt_ecommerce_add_product_meta_description'
+                ];
 
-            // Loop all elements
-            elements.forEach(element => {
-                // Get quill element
-                let quill = document.querySelector(element);
+                // Loop all elements
+                elements.forEach(element => {
+                    // Get quill element
+                    let quill = document.querySelector(element);
 
-                // Break if element not found
-                if (!quill) {
-                    return;
-                }
+                    // Break if element not found
+                    if (!quill) {
+                        return;
+                    }
 
-                // Init quill --- more info: https://quilljs.com/docs/quickstart/
-                quill = new Quill(element, {
-                    modules: {
-                        toolbar: [
-                            [{
-                                header: [1, 2, false]
-                            }],
-                            ['bold', 'italic', 'underline'],
-                            ['image', 'code-block']
-                        ]
-                    },
-                    placeholder: 'Type your text here...',
-                    theme: 'snow' // or 'bubble'
+                    // Init quill --- more info: https://quilljs.com/docs/quickstart/
+                    quill = new Quill(element, {
+                        modules: {
+                            toolbar: [
+                                [{
+                                    header: [1, 2, false]
+                                }],
+                                ['bold', 'italic', 'underline'],
+                                ['image', 'code-block']
+                            ]
+                        },
+                        placeholder: 'اینجا بنویسید...',
+                        theme: 'snow' // or 'bubble'
+                    });
+
+
+                      var form = document.querySelector("form");
+                      var content = document.querySelector('#content');
+
+                      form.addEventListener('submit', function(e){
+                        content.value = quill.root.innerHTML;
+                      });
                 });
-
-
-                  var form = document.querySelector("form");
-                  var content = document.querySelector('#content');
-
-                  form.addEventListener('submit', function(e){
-                    content.value = quill.root.innerHTML;
-                  });
-            });
-        }
-
-        // Public methods
-        return {
-            init: function () {
-                // Init forms
-                initQuill();
             }
-        };
-    }();
 
-    // On document ready
-    KTUtil.onDOMContentLoaded(function () {
-        KTAppEcommerceSaveProduct.init();
-    });
-</script>
+            // Public methods
+            return {
+                init: function () {
+                    // Init forms
+                    initQuill();
+                }
+            };
+        }();
+
+        // On document ready
+        KTUtil.onDOMContentLoaded(function () {
+            KTAppEcommerceSaveProduct.init();
+        });
+    </script>
+@endsection
