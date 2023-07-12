@@ -19,6 +19,15 @@
                 </a>
             </div>
 
+            <div class="menu-item">
+                <a class="menu-link {{ request()->is('panel/admin/admins*') ? 'active' : '' }}" href={{ route('panel.admin.admins.index') }}>
+                    <span class="menu-bullet">
+                        <span class="bullet bullet-dot"></span>
+                    </span>
+                    <span class="menu-title">مدیران سیستم</span>
+                </a>
+            </div>
+
             <div class="menu-item pt-5">
                 <div class="menu-content">
                     <span class="menu-heading fw-bold text-uppercase fs-7">صفحات</span>

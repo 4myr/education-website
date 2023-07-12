@@ -41,9 +41,22 @@ Route::group(['prefix' => 'panel'], function() {
             'edit' => 'panel.admin.news.edit',
             'update' => 'panel.admin.news.update',
         ])->except('destroy');
-        
+
         Route::get('/news/{news}/delete', [\App\Http\Controllers\Admin\NewsController::class, 'destroy'])
             ->name('panel.admin.news.destroy');
+
+
+        Route::resource('/admins', \App\Http\Controllers\Admin\AdminsController::class)->names([
+            'index' => 'panel.admin.admins.index',
+            'create' => 'panel.admin.admins.create',
+            'store' => 'panel.admin.admins.store',
+            'show' => 'panel.admin.admins.show',
+            'edit' => 'panel.admin.admins.edit',
+            'update' => 'panel.admin.admins.update',
+        ])->except('destroy');
+
+        Route::get('/admins/{admin}/delete', [\App\Http\Controllers\Admin\AdminsController::class, 'destroy'])
+            ->name('panel.admin.admins.destroy');
 
     });
 });
