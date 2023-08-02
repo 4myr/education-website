@@ -123,32 +123,25 @@
 									</div>
 									<div class="d-flex align-items-stretch" id="kt_header_user_menu_toggle">
 										<div class="topbar-item cursor-pointer symbol px-3 px-lg-5 me-n3 me-lg-n5 symbol-30px symbol-md-35px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-											<img src="assets/media/avatars/300-1.jpg" alt="metronic" />
+											<img src="{{ asset('/metronic/assets/media/blank.png') }}" alt="metronic" />
 										</div>
 										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
 											<div class="menu-item px-3">
 												<div class="menu-content d-flex align-items-center px-3">
 													<div class="symbol symbol-50px me-5">
-														<img alt="Logo" src="assets/media/avatars/300-1.jpg" />
+														<img alt="Logo" src="{{ asset('/metronic/assets/media/blank.png') }}" />
 													</div>
 													<div class="d-flex flex-column">
-														<div class="fw-bold d-flex align-items-center fs-5">جلالی
-														<span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">حرفه ای</span></div>
-														<a href="#" class="fw-semibold text-muted text-hover-primary fs-7">max@kt.com</a>
+														<div class="fw-bold d-flex align-items-center fs-5">{{ auth()->user()->full_name }}
+														<span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">{{ Auth::getDefaultDriver() == 'admin' ? 'مدیر' : (Auth::getDefaultDriver() ==
+														'teacher' ? 'استاد' : 'دانشجو')}}</span></div>
+														<a href="#" class="fw-semibold text-muted text-hover-primary fs-7">{{ auth()->user()->mobile }}</a>
 													</div>
 												</div>
 											</div>
 											<div class="separator my-2"></div>
 											<div class="menu-item px-5">
-												<a href="../../demo13/dist/account/overview.html" class="menu-link px-5">پروفایل من</a>
-											</div>
-											<div class="separator my-2"></div>
-
-											<div class="menu-item px-5 my-1">
-												<a href="../../demo13/dist/account/settings.html" class="menu-link px-5">اکانت تنظیمات</a>
-											</div>
-											<div class="menu-item px-5">
-												<a href="../../demo13/dist/authentication/layouts/corporate/sign-in.html" class="menu-link px-5">خروج</a>
+												<a href="{{ route('panel.' . Auth::getDefaultDriver() . '.logout') }}" class="menu-link px-5">خروج</a>
 											</div>
 										</div>
 									</div>
@@ -161,28 +154,28 @@
 							</div>
 						</div>
 					</div>
-					<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-						<div class="toolbar" id="kt_toolbar">
-							<div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-								<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">
-									<h1 class="d-flex align-items-center text-dark fw-bold my-1 fs-3">پیش فرض</h1>
-									<span class="h-20px border-gray-200 border-start mx-4"></span>
-									<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
-										<li class="breadcrumb-item text-muted">
-											<a href="../../demo13/dist/index.html" class="text-muted text-hover-primary">خانه</a>
-										</li>
-										<li class="breadcrumb-item">
-											<span class="bullet bg-gray-200 w-5px h-2px"></span>
-										</li>
-										<li class="breadcrumb-item text-muted">داشبورد ها</li>
-										<li class="breadcrumb-item">
-											<span class="bullet bg-gray-200 w-5px h-2px"></span>
-										</li>
-										<li class="breadcrumb-item text-dark">پیش فرض</li>
-									</ul>
-								</div>
-							</div>
-						</div>
+					<div class="content d-flex flex-column flex-column-fluid mt-0 pt-0" id="kt_content">
+{{--						<div class="toolbar" id="kt_toolbar">--}}
+{{--							<div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">--}}
+{{--								<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">--}}
+{{--									<h1 class="d-flex align-items-center text-dark fw-bold my-1 fs-3">پیش فرض</h1>--}}
+{{--									<span class="h-20px border-gray-200 border-start mx-4"></span>--}}
+{{--									<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">--}}
+{{--										<li class="breadcrumb-item text-muted">--}}
+{{--											<a href="../../demo13/dist/index.html" class="text-muted text-hover-primary">خانه</a>--}}
+{{--										</li>--}}
+{{--										<li class="breadcrumb-item">--}}
+{{--											<span class="bullet bg-gray-200 w-5px h-2px"></span>--}}
+{{--										</li>--}}
+{{--										<li class="breadcrumb-item text-muted">داشبورد ها</li>--}}
+{{--										<li class="breadcrumb-item">--}}
+{{--											<span class="bullet bg-gray-200 w-5px h-2px"></span>--}}
+{{--										</li>--}}
+{{--										<li class="breadcrumb-item text-dark">پیش فرض</li>--}}
+{{--									</ul>--}}
+{{--								</div>--}}
+{{--							</div>--}}
+{{--						</div>--}}
 						<div class="post d-flex flex-column-fluid" id="kt_post">
 							<div id="kt_content_container" class="container-fluid">
                                 @include('partials.alerts')
@@ -193,12 +186,12 @@
 					<div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
 						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
 							<div class="text-dark order-2 order-md-1">
-								<span class="text-muted fw-semibold me-1">2022&copy;</span>
-								<a href="" target="_blank" class="text-gray-800 text-hover-primary">Keenthemes</a>
+								<span class="text-muted fw-semibold me-1">2023&copy;</span>
+								<a href="" target="_blank" class="text-gray-800 text-hover-primary">{{ env('APP_NAME') }}</a>
 							</div>
 							<ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-								<li class="menu-item">
-									<a href="https://keenthemes.com" target="_blank" class="menu-link px-2">درباره</a>
+								<li class="menu-item menu-link px-2">
+									<span>Developed by</span> <a href="https://amyr.ir" target="_blank">AMYR</a>
 								</li>
 							</ul>
 						</div>

@@ -1,3 +1,6 @@
 .ql-editor {
     text-align: right;
 }
+.menu-item * {
+    cursor: pointer;
+}

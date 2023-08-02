@@ -27,7 +27,7 @@
                     <input type="password" name="password" class="form-control mb-2" placeholder="خالی بگذارید">
                     <div class="fv-plugins-message-container invalid-feedback"></div>
                 </div>
-                <div class="mb-6 fv-row      fv-plugins-icon-container">
+                <div class="mb-6 fv-row fv-plugins-icon-container">
                     <label class="form-label">نقش</label>
                     <select class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="انتخاب " id="kt_ecommerce_add_product_status_select" name="role">
                         <option></option>
