@@ -1,3 +1,22 @@
+@php
+    $authenticated = false;
+    $guardLabel = '';
+    $type = '';
+
+    if (auth()->guard('admin')->check()) {
+        $authenticated = true;
+        $guardLabel = 'ادمین';
+        $type = 'admin';
+    } elseif (auth()->guard('teacher')->check()) {
+        $authenticated = true;
+        $guardLabel = 'استاد';
+        $type = 'teacher';
+    } elseif (auth()->guard('student')->check()) {
+        $authenticated = true;
+        $guardLabel = 'دانشجو';
+        $type = 'student';
+    }
+@endphp
 
 <head>
     <meta charset="utf-8">
@@ -22,41 +41,41 @@
                 <div class="col-lg-5 d-flex flex-column pt-lg-4 pt-xl-5">
                     <h5 class="mb-2 font-weight-bolder">{{ env('APP_NAME') }}</h5>
                     <h1 class="display-3 font-weight-bolder mb-4"><span class="text-primary text-gradient">آزمون آنلاین</span> <br> تشریحی و تستی</h1>
-                    <p class="fs-lg mb-5">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
+                    <p class="fs-lg mb-5">این سامانه آموزشی شامل امکاناتی نظیر آزمون آنلاین تشریحی و تستی، ورود به کلاس آنلاین و... می‌باشد.</p>
 
                     <!-- Desktop form -->
-                    <form class="d-flex flex-wrap gap-2 mb-5">
-                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">
-                            هوش مصنوعی
-                        </button>
-                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">
-                            شبیه سازی کامپیوتری
-                        </button>
-                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">
-                            ریاضی گسسته
-                        </button>
-                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">
-                            مهندسی نرم افزار
-                        </button>
-                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">
-                            زبان تخصصی
-                        </button>
-                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">
-                            گرافیک کامپیوتری
-                        </button>
-                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">
-                            ساختمان داده
-                        </button>
-                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">
-                            کارآفرینی
-                        </button>
-                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">
-                            پروژه
-                        </button>
-                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">
-                            کارآموزی
-                        </button>
-                    </form>
+{{--                    <form class="d-flex flex-wrap gap-2 mb-5">--}}
+{{--                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">--}}
+{{--                            هوش مصنوعی--}}
+{{--                        </button>--}}
+{{--                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">--}}
+{{--                            شبیه سازی کامپیوتری--}}
+{{--                        </button>--}}
+{{--                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">--}}
+{{--                            ریاضی گسسته--}}
+{{--                        </button>--}}
+{{--                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">--}}
+{{--                            مهندسی نرم افزار--}}
+{{--                        </button>--}}
+{{--                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">--}}
+{{--                            زبان تخصصی--}}
+{{--                        </button>--}}
+{{--                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">--}}
+{{--                            گرافیک کامپیوتری--}}
+{{--                        </button>--}}
+{{--                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">--}}
+{{--                            ساختمان داده--}}
+{{--                        </button>--}}
+{{--                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">--}}
+{{--                            کارآفرینی--}}
+{{--                        </button>--}}
+{{--                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">--}}
+{{--                            پروژه--}}
+{{--                        </button>--}}
+{{--                        <button class="btn btn-sm btn-primary mb-0 px-3" type="button">--}}
+{{--                            کارآموزی--}}
+{{--                        </button>--}}
+{{--                    </form>--}}
 
                     <div class="d-flex align-items-center mt-auto mb-3 mb-lg-0 pb-4 pb-lg-0 pb-xl-5">
                         <div class="d-flex me-3">
@@ -70,15 +89,18 @@
                                 <img src="https://demos.creative-tim.com/soft-ui-design-system/assets/img/team-4.jpg" class="rounded-circle avatar-sm border border-white" alt="Avatar">
                             </div>
                         </div>
-                        <span>به جمع <span class="text-primary font-weight-bold">0</span> دانشجوی ما بپیوندید</span>
+                        <span>به جمع <span class="text-primary font-weight-bold">{{ \App\Models\Student::all()->count() }}</span> دانشجوی ما بپیوندید</span>
                     </div>
                 </div>
                 <div class="col-lg-7 text-center ">
                     <div class="d-flex h-100 align-items-center justify-content-center">
-                        <img src="https://images.unsplash.com/photo-1529068755536-a5ade0dcb4e8?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1481&amp;q=80" class="rounded-circle border border-3 border-white shadow-lg z-index-2" width="300px" alt="Avatar">
-                        <img src="https://images.unsplash.com/photo-1534644586429-7681a71bc591?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80" class="rounded-circle border border-3 border-white position-absolute ms-7 me-n12 mb-7 mt-lg-n12 shadow-lg" width="250px" alt="Avatar">
-                        <img src="https://images.unsplash.com/photo-1574852859542-1b41217a7815?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dW5pdmVyc2l0eXxlbnwwfDJ8MHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60" class="rounded-circle border border-3 border-white position-absolute ms-7 me-n11 mb-n6 mt-lg-12 mt-8 shadow-lg" width="200px" alt="Avatar">
-                        <img src="https://images.unsplash.com/photo-1499887142886-791eca5918cd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c3R1ZGVudCUyMHBvcnRyYWl0fGVufDB8MnwwfHw%3D&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60" class="rounded-circle border border-3 border-white position-absolute me-10 ms-lg-n11 ms-n10 mb-7 mt-lg-n5 mt-9 shadow-lg" width="220px" alt="Avatar">
+                        <img src="{{ asset('/assets/front/images/wp4.png') }}" class="rounded-circle border border-3 border-white shadow-lg z-index-2" width="300px" alt="Avatar">
+                        <img src="{{ asset('/assets/front/images/wp1.png') }}" class="rounded-circle border border-3 border-white position-absolute ms-7 me-n12 mb-7 mt-lg-n12 shadow-lg" width="250px"
+                             alt="Avatar">
+                        <img src="{{ asset('/assets/front/images/wp3.jpeg') }}" class="rounded-circle border border-3 border-white position-absolute ms-7 me-n11 mb-n6 mt-lg-12 mt-8 shadow-lg"
+                             width="200px" alt="Avatar">
+                        <img src="{{ asset('/assets/front/images/wp2.png') }}" class="rounded-circle border border-3 border-white position-absolute me-10 ms-lg-n11 ms-n10 mb-7 mt-lg-n5 mt-9
+                        shadow-lg" width="220px" alt="Avatar">
 
                     </div>
                 </div>
@@ -88,99 +110,99 @@
 
 
 
-    <section class="py-7">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h2 class="mb-5">آخرین اخبار</h2>
-                </div>
-                <div class="col-lg-4 mb-lg-0 mb-4">
-                    <div class="card">
-                        <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
-                            <a href="javascript:;" class="d-block">
-                                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80" class="img-fluid border-radius-lg">
-                                <span class="mask bg-gradient-dark position-absolute top-0 start-0 border-radius-lg opacity-6"></span>
-                                <button href="javascript:;" class="btn btn-white btn-icon-only btn-rounded z-index-2 position-absolute end-5 top-7" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Add to watchlist" data-original-title="">
-                                    <i class="ni ni-favourite-28"></i>
-                                </button>
-                                <span class="badge bg-gradient-info mb-3 position-absolute top-10 start-5">جدید</span>
-                            </a>
-                        </div>
-                        <div class="card-body pt-3">
-                            <a href="javascript:;" class="card-title h5 d-block text-darker font-weight-bolder">
-                                آموزش ثبت نام
-                            </a>
-                            <p class="text-dark mb-1 line-clamp-3">
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                            </p>
-                            <span class="text-sm mb-3">۴ ساعت پیش</span>
-                        </div>
-                        <div class="card-footer pt-0">
-                            <a href="javascript:;" class="btn btn-outline-info btn-rounded mb-0">
-                                بیشتر بخوانید
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-lg-0 mb-4">
-                    <div class="card">
-                        <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
-                            <a href="javascript:;" class="d-block">
-                                <img src="https://images.unsplash.com/photo-1534665482403-a909d0d97c67?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80" class="img-fluid border-radius-lg">
-                                <span class="mask bg-gradient-dark position-absolute top-0 start-0 border-radius-lg opacity-3"></span>
-                                <button href="javascript:;" class="btn btn-white btn-icon-only btn-rounded z-index-2 position-absolute end-5 top-7" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Add to watchlist" data-original-title="">
-                                    <i class="ni ni-favourite-28"></i>
-                                </button>
-                                <span class="badge bg-gradient-danger mb-3 position-absolute top-10 start-5">Sale</span>
-                            </a>
-                        </div>
-                        <div class="card-body pt-3">
-                            <a href="javascript:;" class="card-title h5 d-block text-darker font-weight-bolder">
-                                آموزش ثبت نام
-                            </a>
-                            <p class="text-dark mb-1 line-clamp-3">
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                            </p>
-                            <span class="text-sm mb-3">۴ ساعت پیش</span>
-                        </div>
-                        <div class="card-footer pt-0">
-                            <a href="javascript:;" class="btn btn-outline-info btn-rounded mb-0">
-                                بیشتر بخوانید
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-lg-0 mb-4">
-                    <div class="card">
-                        <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
-                            <a href="javascript:;" class="d-block">
-                                <img src="https://images.unsplash.com/photo-1525130413817-d45c1d127c42?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80" class="img-fluid border-radius-lg">
-                                <span class="mask bg-gradient-dark position-absolute top-0 start-0 border-radius-lg opacity-3"></span>
-                                <button href="javascript:;" class="btn btn-white btn-icon-only btn-rounded z-index-2 position-absolute end-5 top-7" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Add to watchlist" data-original-title="">
-                                    <i class="ni ni-favourite-28"></i>
-                                </button>
-                            </a>
-                        </div>
+{{--    <section class="py-7">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-12 text-center">--}}
+{{--                    <h2 class="mb-5">آخرین اخبار</h2>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4 mb-lg-0 mb-4">--}}
+{{--                    <div class="card">--}}
+{{--                        <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">--}}
+{{--                            <a href="javascript:;" class="d-block">--}}
+{{--                                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80" class="img-fluid border-radius-lg">--}}
+{{--                                <span class="mask bg-gradient-dark position-absolute top-0 start-0 border-radius-lg opacity-6"></span>--}}
+{{--                                <button href="javascript:;" class="btn btn-white btn-icon-only btn-rounded z-index-2 position-absolute end-5 top-7" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Add to watchlist" data-original-title="">--}}
+{{--                                    <i class="ni ni-favourite-28"></i>--}}
+{{--                                </button>--}}
+{{--                                <span class="badge bg-gradient-info mb-3 position-absolute top-10 start-5">جدید</span>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                        <div class="card-body pt-3">--}}
+{{--                            <a href="javascript:;" class="card-title h5 d-block text-darker font-weight-bolder">--}}
+{{--                                آموزش ثبت نام--}}
+{{--                            </a>--}}
+{{--                            <p class="text-dark mb-1 line-clamp-3">--}}
+{{--                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.--}}
+{{--                            </p>--}}
+{{--                            <span class="text-sm mb-3">۴ ساعت پیش</span>--}}
+{{--                        </div>--}}
+{{--                        <div class="card-footer pt-0">--}}
+{{--                            <a href="javascript:;" class="btn btn-outline-info btn-rounded mb-0">--}}
+{{--                                بیشتر بخوانید--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4 mb-lg-0 mb-4">--}}
+{{--                    <div class="card">--}}
+{{--                        <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">--}}
+{{--                            <a href="javascript:;" class="d-block">--}}
+{{--                                <img src="https://images.unsplash.com/photo-1534665482403-a909d0d97c67?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80" class="img-fluid border-radius-lg">--}}
+{{--                                <span class="mask bg-gradient-dark position-absolute top-0 start-0 border-radius-lg opacity-3"></span>--}}
+{{--                                <button href="javascript:;" class="btn btn-white btn-icon-only btn-rounded z-index-2 position-absolute end-5 top-7" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Add to watchlist" data-original-title="">--}}
+{{--                                    <i class="ni ni-favourite-28"></i>--}}
+{{--                                </button>--}}
+{{--                                <span class="badge bg-gradient-danger mb-3 position-absolute top-10 start-5">Sale</span>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                        <div class="card-body pt-3">--}}
+{{--                            <a href="javascript:;" class="card-title h5 d-block text-darker font-weight-bolder">--}}
+{{--                                آموزش ثبت نام--}}
+{{--                            </a>--}}
+{{--                            <p class="text-dark mb-1 line-clamp-3">--}}
+{{--                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.--}}
+{{--                            </p>--}}
+{{--                            <span class="text-sm mb-3">۴ ساعت پیش</span>--}}
+{{--                        </div>--}}
+{{--                        <div class="card-footer pt-0">--}}
+{{--                            <a href="javascript:;" class="btn btn-outline-info btn-rounded mb-0">--}}
+{{--                                بیشتر بخوانید--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4 mb-lg-0 mb-4">--}}
+{{--                    <div class="card">--}}
+{{--                        <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">--}}
+{{--                            <a href="javascript:;" class="d-block">--}}
+{{--                                <img src="https://images.unsplash.com/photo-1525130413817-d45c1d127c42?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80" class="img-fluid border-radius-lg">--}}
+{{--                                <span class="mask bg-gradient-dark position-absolute top-0 start-0 border-radius-lg opacity-3"></span>--}}
+{{--                                <button href="javascript:;" class="btn btn-white btn-icon-only btn-rounded z-index-2 position-absolute end-5 top-7" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Add to watchlist" data-original-title="">--}}
+{{--                                    <i class="ni ni-favourite-28"></i>--}}
+{{--                                </button>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
 
-                        <div class="card-body pt-3">
-                            <a href="javascript:;" class="card-title h5 d-block text-darker font-weight-bolder">
-                                آموزش ثبت نام
-                            </a>
-                            <p class="text-dark mb-1 line-clamp-3">
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                            </p>
-                            <span class="text-sm mb-3">۴ ساعت پیش</span>
-                        </div>
-                        <div class="card-footer pt-0">
-                            <a href="javascript:;" class="btn btn-outline-info btn-rounded mb-0">
-                                بیشتر بخوانید
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+{{--                        <div class="card-body pt-3">--}}
+{{--                            <a href="javascript:;" class="card-title h5 d-block text-darker font-weight-bolder">--}}
+{{--                                آموزش ثبت نام--}}
+{{--                            </a>--}}
+{{--                            <p class="text-dark mb-1 line-clamp-3">--}}
+{{--                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.--}}
+{{--                            </p>--}}
+{{--                            <span class="text-sm mb-3">۴ ساعت پیش</span>--}}
+{{--                        </div>--}}
+{{--                        <div class="card-footer pt-0">--}}
+{{--                            <a href="javascript:;" class="btn btn-outline-info btn-rounded mb-0">--}}
+{{--                                بیشتر بخوانید--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
     <section class="py-5">
         <div class="container">
             <div class="row text-center">
@@ -205,8 +227,8 @@
                                 </g>
                             </svg>
                         </div>
-                        <h5 class="mt-2">شرکت در درس ها</h5>
-                        <p>به صورت اختیاری می توانید در درس های تعریف شده شرکت کنید.</p>
+                        <h5 class="mt-2">تفکیک جلسات</h5>
+                        <p>می‌توانید فایل‌های هر جلسه را به تفکیک مشاهده کنید.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
@@ -228,7 +250,7 @@
                             </svg>
                         </div>
                         <h5 class="mt-2">شرکت در آزمون</h5>
-                        <p>می توانید در آزمون های تشریحی و تستی شرکت کنید و نمره بگیرید.</p>
+                        <p>می توانید در آزمون های آنلاین شرکت کنید و نمره بگیرید.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
@@ -249,122 +271,13 @@
                                 </g>
                             </svg>
                         </div>
-                        <h5 class="mt-2">ثبت بازخورد</h5>
-                        <p>جهت بهبود سطح عملکرد اساتید می توانید بازخورد ثبت کنید.</p>
+                        <h5 class="mt-2">کلاس آنلاین</h5>
+                        <p>می‌توانید بصورت مستقیم به کلاس درس آنلاین وارد شوید.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-{{--    <section class="py-4 position-relative">--}}
-{{--        <div id="carousel-testimonials" class="carousel slide carousel-team">--}}
-{{--            <div class="carousel-inner">--}}
-{{--                <div class="carousel-item active">--}}
-{{--                    <div class="container">--}}
-{{--                        <div class="row align-items-center">--}}
-{{--                            <div class="col-md-5 p-5 ms-lg-auto">--}}
-{{--                                <div class="p-3">--}}
-{{--                                    <img class="w-100 border-radius-md" src="https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/charles.jpg" alt="First slide">--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-5 me-lg-auto position-relative">--}}
-{{--                                <p class="text-sm font-weight-bold mb-1">- Customer Story</p>--}}
-{{--                                <h3 class="text-dark" spellcheck="false">Excelent courses. You guys are the best!</h3>--}}
-{{--                                <p class="my-4">--}}
-{{--                                    <i>"Let the brain, muscles, nerves, every part of your body, be full of that idea, and just leave every other idea alone.--}}
-{{--                                        This is the way to success."</i>--}}
-{{--                                </p>--}}
-{{--                                <div class="author align-items-center">--}}
-{{--                                    <div class="avatar shadow bg-gradient-dark">--}}
-{{--                                        <img src="https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/logos/white-logos/logo-spotify-white.svg">--}}
-{{--                                    </div>--}}
-{{--                                    <div class="name ps-2">--}}
-{{--                                        <span>Mathew Glock</span>--}}
-{{--                                        <div>--}}
-{{--                                            <small>Marketing Manager - Slack</small>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div class="w-25 ms-auto opacity-2 mt-n9">--}}
-{{--                                    <svg class="opacity-3" width="110px" height="110px" viewBox="0 0 270 270" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">--}}
-{{--                                        <title>quote-down</title>--}}
-{{--                                        <g id="quote-down" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">--}}
-{{--                                            <path d="M107.000381,49.033238 C111.792099,48.01429 115.761022,48.6892564 116.625294,50.9407629 C117.72393,53.8028077 113.174473,58.3219079 107.017635,60.982801 C107.011653,60.9853863 107.00567,60.9879683 106.999688,60.990547 C106.939902,61.0219589 106.879913,61.0439426 106.820031,61.0659514 C106.355389,61.2618887 105.888177,61.4371549 105.421944,61.5929594 C88.3985192,68.1467602 80.3242628,76.9161885 70.3525495,90.6906738 C60.0774843,104.884196 54.9399518,119.643717 54.9399518,134.969238 C54.9399518,138.278158 55.4624127,140.716309 56.5073346,142.283691 C57.2039492,143.328613 57.9876406,143.851074 58.8584088,143.851074 C59.7291771,143.851074 61.0353294,143.241536 62.7768659,142.022461 C68.3497825,138.016927 75.4030052,136.01416 83.9365338,136.01416 C93.8632916,136.01416 102.658051,140.063232 110.320811,148.161377 C117.983572,156.259521 121.814952,165.88151 121.814952,177.027344 C121.814952,188.695638 117.417572,198.970703 108.622813,207.852539 C99.828054,216.734375 89.1611432,221.175293 76.6220807,221.175293 C61.9931745,221.175293 49.3670351,215.166992 38.7436627,203.150391 C28.1202903,191.133789 22.8086041,175.024577 22.8086041,154.822754 C22.8086041,131.312012 30.0359804,110.239421 44.490733,91.6049805 C58.2196377,73.906272 74.3541002,59.8074126 102.443135,50.4450748 C102.615406,50.3748509 102.790055,50.3058192 102.966282,50.2381719 C104.199241,49.7648833 105.420135,49.3936487 106.596148,49.1227802 L107,49 Z M233.000381,49.033238 C237.792099,48.01429 241.761022,48.6892564 242.625294,50.9407629 C243.72393,53.8028077 239.174473,58.3219079 233.017635,60.982801 C233.011653,60.9853863 233.00567,60.9879683 232.999688,60.990547 C232.939902,61.0219589 232.879913,61.0439426 232.820031,61.0659514 C232.355389,61.2618887 231.888177,61.4371549 231.421944,61.5929594 C214.398519,68.1467602 206.324263,76.9161885 196.352549,90.6906738 C186.077484,104.884196 180.939952,119.643717 180.939952,134.969238 C180.939952,138.278158 181.462413,140.716309 182.507335,142.283691 C183.203949,143.328613 183.987641,143.851074 184.858409,143.851074 C185.729177,143.851074 187.035329,143.241536 188.776866,142.022461 C194.349783,138.016927 201.403005,136.01416 209.936534,136.01416 C219.863292,136.01416 228.658051,140.063232 236.320811,148.161377 C243.983572,156.259521 247.814952,165.88151 247.814952,177.027344 C247.814952,188.695638 243.417572,198.970703 234.622813,207.852539 C225.828054,216.734375 215.161143,221.175293 202.622081,221.175293 C187.993174,221.175293 175.367035,215.166992 164.743663,203.150391 C154.12029,191.133789 148.808604,175.024577 148.808604,154.822754 C148.808604,131.312012 156.03598,110.239421 170.490733,91.6049805 C184.219638,73.906272 200.3541,59.8074126 228.443135,50.4450748 C228.615406,50.3748509 228.790055,50.3058192 228.966282,50.2381719 C230.199241,49.7648833 231.420135,49.3936487 232.596148,49.1227802 L233,49 Z" id="quote-up" fill="#48484A" fill-rule="nonzero" transform="translate(135.311778, 134.872794) scale(-1, -1) translate(-135.311778, -134.872794) "></path>--}}
-{{--                                        </g>--}}
-{{--                                    </svg>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="carousel-item">--}}
-{{--                    <div class="container">--}}
-{{--                        <div class="row align-items-center">--}}
-{{--                            <div class="col-md-5 p-5 ms-lg-auto">--}}
-{{--                                <div class="p-3">--}}
-{{--                                    <img class="w-100 border-radius-md shadow" src="https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/ivana.jpg" alt="First slide">--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-5 me-lg-auto">--}}
-{{--                                <p class="text-sm font-weight-bold mb-1">- Customer Story</p>--}}
-{{--                                <h3 class="text-dark">Awesome services! Fast and secure.</h3>--}}
-{{--                                <p class="my-4">--}}
-{{--                                    <i>"Wealth creation is an evolutionarily recent positive-sum game.--}}
-{{--                                        Status is an old zero-sum game. Those attacking wealth creation--}}
-{{--                                        are often just seeking status."</i>--}}
-{{--                                </p>--}}
-{{--                                <div class="author align-items-center">--}}
-{{--                                    <div class="avatar shadow bg-gradient-dark">--}}
-{{--                                        <img src="https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/logos/white-logos/logo-google-white.svg">--}}
-{{--                                    </div>--}}
-{{--                                    <div class="name ps-2">--}}
-{{--                                        <span>Ivana Gerge</span>--}}
-{{--                                        <div>--}}
-{{--                                            <small>CFO - Google</small>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div class="w-25 ms-auto opacity-2 mt-n9">--}}
-{{--                                    <svg class="opacity-3" width="110px" height="110px" viewBox="0 0 270 270" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">--}}
-{{--                                        <title>quote-down</title>--}}
-{{--                                        <g id="quote-down" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">--}}
-{{--                                            <path d="M107.000381,49.033238 C111.792099,48.01429 115.761022,48.6892564 116.625294,50.9407629 C117.72393,53.8028077 113.174473,58.3219079 107.017635,60.982801 C107.011653,60.9853863 107.00567,60.9879683 106.999688,60.990547 C106.939902,61.0219589 106.879913,61.0439426 106.820031,61.0659514 C106.355389,61.2618887 105.888177,61.4371549 105.421944,61.5929594 C88.3985192,68.1467602 80.3242628,76.9161885 70.3525495,90.6906738 C60.0774843,104.884196 54.9399518,119.643717 54.9399518,134.969238 C54.9399518,138.278158 55.4624127,140.716309 56.5073346,142.283691 C57.2039492,143.328613 57.9876406,143.851074 58.8584088,143.851074 C59.7291771,143.851074 61.0353294,143.241536 62.7768659,142.022461 C68.3497825,138.016927 75.4030052,136.01416 83.9365338,136.01416 C93.8632916,136.01416 102.658051,140.063232 110.320811,148.161377 C117.983572,156.259521 121.814952,165.88151 121.814952,177.027344 C121.814952,188.695638 117.417572,198.970703 108.622813,207.852539 C99.828054,216.734375 89.1611432,221.175293 76.6220807,221.175293 C61.9931745,221.175293 49.3670351,215.166992 38.7436627,203.150391 C28.1202903,191.133789 22.8086041,175.024577 22.8086041,154.822754 C22.8086041,131.312012 30.0359804,110.239421 44.490733,91.6049805 C58.2196377,73.906272 74.3541002,59.8074126 102.443135,50.4450748 C102.615406,50.3748509 102.790055,50.3058192 102.966282,50.2381719 C104.199241,49.7648833 105.420135,49.3936487 106.596148,49.1227802 L107,49 Z M233.000381,49.033238 C237.792099,48.01429 241.761022,48.6892564 242.625294,50.9407629 C243.72393,53.8028077 239.174473,58.3219079 233.017635,60.982801 C233.011653,60.9853863 233.00567,60.9879683 232.999688,60.990547 C232.939902,61.0219589 232.879913,61.0439426 232.820031,61.0659514 C232.355389,61.2618887 231.888177,61.4371549 231.421944,61.5929594 C214.398519,68.1467602 206.324263,76.9161885 196.352549,90.6906738 C186.077484,104.884196 180.939952,119.643717 180.939952,134.969238 C180.939952,138.278158 181.462413,140.716309 182.507335,142.283691 C183.203949,143.328613 183.987641,143.851074 184.858409,143.851074 C185.729177,143.851074 187.035329,143.241536 188.776866,142.022461 C194.349783,138.016927 201.403005,136.01416 209.936534,136.01416 C219.863292,136.01416 228.658051,140.063232 236.320811,148.161377 C243.983572,156.259521 247.814952,165.88151 247.814952,177.027344 C247.814952,188.695638 243.417572,198.970703 234.622813,207.852539 C225.828054,216.734375 215.161143,221.175293 202.622081,221.175293 C187.993174,221.175293 175.367035,215.166992 164.743663,203.150391 C154.12029,191.133789 148.808604,175.024577 148.808604,154.822754 C148.808604,131.312012 156.03598,110.239421 170.490733,91.6049805 C184.219638,73.906272 200.3541,59.8074126 228.443135,50.4450748 C228.615406,50.3748509 228.790055,50.3058192 228.966282,50.2381719 C230.199241,49.7648833 231.420135,49.3936487 232.596148,49.1227802 L233,49 Z" id="quote-up" fill="#48484A" fill-rule="nonzero" transform="translate(135.311778, 134.872794) scale(-1, -1) translate(-135.311778, -134.872794) "></path>--}}
-{{--                                        </g>--}}
-{{--                                    </svg>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <a class="carousel-control-prev text-dark" href="#carousel-testimonials" role="button" data-bs-slide="prev">--}}
-{{--                <i class="fas fa-chevron-left" aria-hidden="true"></i>--}}
-{{--                <span class="sr-only">Previous</span>--}}
-{{--            </a>--}}
-{{--            <a class="carousel-control-next text-dark" href="#carousel-testimonials" role="button" data-bs-slide="next">--}}
-{{--                <i class="fas fa-chevron-right" aria-hidden="true"></i>--}}
-{{--                <span class="sr-only">Next</span>--}}
-{{--            </a>--}}
-{{--        </div>--}}
-{{--    </section>--}}
-    <div class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-8 mx-auto text-center">
-                    <h2 class="mb-4">جستجو</h2>
-                </div>
-            </div>
-            <div class="row mt-4">
-
-                    <form class="mb-5 d-flex flex-column flex-lg-row gap-2 w-lg-50 mx-auto">
-                        <input type="text" class="form-control form-control-lg" placeholder="نام درس یا دوره آموزشی...">
-                        <button class="btn btn-primary w-100 w-lg-20 mb-0" type="button">
-                            جستجو
-                        </button>
-                    </form>
-            </div>
-        </div>
-    </div>
     <section class="py-4">
         <div class="container">
             <div class="row my-5">
@@ -386,7 +299,7 @@
                             </h5>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionRental">
                                 <div class="accordion-body text-sm opacity-8">
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                    برای ثبت نام می توانید از قسمت ورود / ثبت نام در بالای صفحه استفاده کنید. شما می‌توانید به عنوان استاد یا دانشجو ثبت نام کنید و پس از تایید مدیریت، به کلاس درس خود وارد شوید.
                                 </div>
                             </div>
                         </div>
@@ -400,7 +313,7 @@
                             </h5>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionRental">
                                 <div class="accordion-body text-sm opacity-8">
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                    شما می‌توانید در پنل کاربری خود، به کلاس درس خود وارد شوید و فایل‌های درس های خود را به تفکیک جلسات مشاهده کنید.
                                 </div>
                             </div>
                         </div>
@@ -414,35 +327,36 @@
                             </h5>
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionRental">
                                 <div class="accordion-body text-sm opacity-8">
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                    در بخش پنل کاربری خود، می‌توانید به آزمون های درس خود وارد شوید و آزمون های خود را مشاهده کنید و در زمان مقرر در آن‌ها شرکت کنید و نسبت به پاسخ دادن به سوالات
+                                    اقدام کنید.
                                 </div>
                             </div>
                         </div>
                         <div class="accordion-item mb-3">
                             <h5 class="accordion-header" id="headingFour">
                                 <button class="accordion-button border-bottom font-weight-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                    چگونه برای یک استاد ثبت بازخورد کنم؟
+                                    چگونه در یک کلاس درس تدریس کنم؟
                                     <i class="collapse-close fa fa-plus text-xs pt-1 position-absolute end-0 me-3" aria-hidden="true"></i>
                                     <i class="collapse-open fa fa-minus text-xs pt-1 position-absolute end-0 me-3" aria-hidden="true"></i>
                                 </button>
                             </h5>
                             <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionRental">
                                 <div class="accordion-body text-sm opacity-8">
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                    شما می‌توانید با ثبت نام به عنوان استاد، تایید توسط مدیریت و تعریف درس توسط مدیریت برای شما تدریس خود را آغاز کنید.
                                 </div>
                             </div>
                         </div>
                         <div class="accordion-item mb-3">
                             <h5 class="accordion-header" id="headingFifth">
                                 <button class="accordion-button border-bottom font-weight-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFifth" aria-expanded="false" aria-controls="collapseFifth">
-                                    چگونه میتوانم به عنوان یک استاد درس ارائه دهم؟
+                                    چگونه می‌توانم درس جدیدی را تعریف کنم؟
                                     <i class="collapse-close fa fa-plus text-xs pt-1 position-absolute end-0 me-3" aria-hidden="true"></i>
                                     <i class="collapse-open fa fa-minus text-xs pt-1 position-absolute end-0 me-3" aria-hidden="true"></i>
                                 </button>
                             </h5>
                             <div id="collapseFifth" class="accordion-collapse collapse" aria-labelledby="headingFifth" data-bs-parent="#accordionRental">
                                 <div class="accordion-body text-sm opacity-8">
-                                   لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                    دروس توسط مدیریت سامانه تعریف می‌شوند و شما می‌توانید درخواست تعریف درس جدید را به مدیریت اعلام کنید و پس از تعریف درس، تدریس خود را آغاز کنید.
                                 </div>
                             </div>
                         </div>
@@ -456,21 +370,23 @@
         <div class="container position-relative z-index-2">
             <div class="row">
                 <div class="col-lg-6 col-md-8 m-auto text-center">
-                    <h5 class="text-white">به روز باشید</h5>
+                    <h5 class="text-white">{{ auth('teacher')->check() || auth('admin')->check() || auth('student')->check() ? 'ورود به پنل' : 'ورود / ثبت نام' }}</h5>
                     <p class="mb-5 text-white">
-                        با عضویت در خبرنامه‌ی {{ env('APP_NAME') }} آخرین اخبار، دوره های آموزشی، درس ها و پیشنهادات ویژه را در ایمیل خود دریافت کنید.
+                        {{ auth('teacher')->check() || auth('admin')->check() || auth('student')->check() ? 'برای ورود به پنل کاربری خود، روی دکمه زیر کلیک کنید.' : 'برای ورود به سامانه یا ثبت نام در سامانه، روی دکمه زیر کلیک کنید.' }}
                     </p>
-                    <div class="row">
-                        <div class="col-sm-8 pe-sm-0 mb-sm-0 mb-2">
-                            <div class="input-group">
-                                <span class="input-group-text border-end-0"><i class="ni ni-email-83"></i></span>
-                                <input class="form-control" placeholder="ایمیل خود را وارد کنید..." type="email">
+
+                    @if ($authenticated)
+                        <a href="{{ route('panel.' . $type . '.index') }}" class="btn bg-gradient-dark mb-0 ms-sm-3 me-auto h-100 w-100 d-block" style="max-width: 300px;margin-left: auto !important;margin-right: auto !important;">پنل {{ $guardLabel  }}</a>
+                    @else
+                        <div class="row justify-content-center">
+                            <div class="col-sm-4 ps-sm-0">
+                                <a href="{{ route('login', ['type' => 'student']) }}" class="btn bg-gradient-dark mb-0 ms-sm-3 me-auto h-100 w-100 d-block">ورود به عنوان دانشجو</a>
+                            </div>
+                            <div class="col-sm-4 ps-sm-0">
+                                <a href="{{ route('login', ['type' => 'teacher']) }}" class="btn bg-gradient-dark mb-0 ms-sm-3 me-auto h-100 w-100 d-block">ورود به عنوان استاد</a>
                             </div>
                         </div>
-                        <div class="col-sm-4 ps-sm-0">
-                            <button type="button" class="btn bg-gradient-dark mb-0 ms-sm-3 me-auto h-100 w-100 d-block">عضویت در خبرنامه</button>
-                        </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -485,21 +401,21 @@
                         <br />
                         <span class="text-secondary text-sm">«نلسون ماندلا»</span>
                     </p>
-                    <a href="javascript:;" class="text-secondary me-xl-4 me-3">
-                        <span class="text-lg fab fa-facebook" aria-hidden="true"></span>
-                    </a>
-                    <a href="javascript:;" class="text-secondary me-xl-4 me-3">
-                        <span class="text-lg fab fa-twitter" aria-hidden="true"></span>
-                    </a>
-                    <a href="javascript:;" class="text-secondary me-xl-4 me-3">
-                        <span class="text-lg fab fa-instagram" aria-hidden="true"></span>
-                    </a>
-                    <a href="javascript:;" class="text-secondary me-xl-4 me-3">
-                        <span class="text-lg fab fa-pinterest" aria-hidden="true"></span>
-                    </a>
-                    <a href="javascript:;" class="text-secondary me-xl-4 me-3">
-                        <span class="text-lg fab fa-github" aria-hidden="true"></span>
-                    </a>
+{{--                    <a href="javascript:;" class="text-secondary me-xl-4 me-3">--}}
+{{--                        <span class="text-lg fab fa-facebook" aria-hidden="true"></span>--}}
+{{--                    </a>--}}
+{{--                    <a href="javascript:;" class="text-secondary me-xl-4 me-3">--}}
+{{--                        <span class="text-lg fab fa-twitter" aria-hidden="true"></span>--}}
+{{--                    </a>--}}
+{{--                    <a href="javascript:;" class="text-secondary me-xl-4 me-3">--}}
+{{--                        <span class="text-lg fab fa-instagram" aria-hidden="true"></span>--}}
+{{--                    </a>--}}
+{{--                    <a href="javascript:;" class="text-secondary me-xl-4 me-3">--}}
+{{--                        <span class="text-lg fab fa-pinterest" aria-hidden="true"></span>--}}
+{{--                    </a>--}}
+{{--                    <a href="javascript:;" class="text-secondary me-xl-4 me-3">--}}
+{{--                        <span class="text-lg fab fa-github" aria-hidden="true"></span>--}}
+{{--                    </a>--}}
                 </div>
                 <div class="col-md-2 col-4 ms-lg-auto mb-md-0 mb-4">
                     <h6 class="text-sm">{{ env('APP_NAME') }}</h6>
@@ -580,6 +496,7 @@
             </div>
         </div>
     </footer>
+
     <script src="https://loopple.s3.eu-west-3.amazonaws.com/soft-ui-design-system/js/core/bootstrap.min.js" type="text/javascript"></script>
     <script src="https://demos.creative-tim.com/soft-ui-design-system/assets/js/soft-design-system.min.js?v=1.0.5" type="text/javascript"></script>
     <script src="https://demos.creative-tim.com/soft-ui-design-system-pro/assets/js/plugins/countup.min.js" type="text/javascript"></script>

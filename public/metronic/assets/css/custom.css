@@ -1,0 +1,10 @@
+.ql-editor {
+    text-align: right;
+}
+.menu-item * {
+    cursor: pointer;
+}
+
+.select2-selection__choice__remove {
+    left: 5px;
+}

@@ -1,5 +1,4 @@
 <html direction="rtl" dir="rtl" style="direction: rtl" >
-
 	<head>
         <base href=""/>
 		<title>{{ env('APP_NAME') }} | پنل</title>
@@ -14,9 +13,10 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<link href="{{ asset("/metronic/assets/plugins/global/plugins.bundle.rtl.css") }} " rel="stylesheet" type="text/css" />
 		<link href="{{ asset("/metronic/assets/css/style.bundle.rtl.css") }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset("/metronic/assets/css/custom.css") }}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{{ asset("/metronic/assets/css/mds.bs.datetimepicker.style.css") }}" />
 	</head>
 	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed toolbar-tablet-and-mobile-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
-
 		<script>var defaultThemeMode = "light"; var themeMode; if ( document.documentElement ) { if ( document.documentElement.hasAttribute("data-theme-mode")) { themeMode = document.documentElement.getAttribute("data-theme-mode"); } else { if ( localStorage.getItem("data-theme") !== null ) { themeMode = localStorage.getItem("data-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-theme", themeMode); }</script>
 		<div class="d-flex flex-column flex-root">
 			<div class="page d-flex flex-row flex-column-fluid">
@@ -38,9 +38,6 @@
 								<div class="d-flex align-items-stretch" id="kt_header_nav">
 									<div class="header-menu align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_header_menu_mobile_toggle" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
 										<div class="menu menu-rounded menu-column menu-lg-row menu-root-here-bg-desktop menu-active-bg menu-state-primary menu-title-gray-800 menu-arrow-gray-400 align-items-stretch my-5 my-lg-0 px-2 px-lg-0 fw-semibold fs-6" id="#kt_header_menu" data-kt-menu="true">
-
-
-
 										</div>
 									</div>
 								</div>
@@ -122,32 +119,25 @@
 									</div>
 									<div class="d-flex align-items-stretch" id="kt_header_user_menu_toggle">
 										<div class="topbar-item cursor-pointer symbol px-3 px-lg-5 me-n3 me-lg-n5 symbol-30px symbol-md-35px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-											<img src="assets/media/avatars/300-1.jpg" alt="metronic" />
+											<img src="{{ asset('/metronic/assets/media/blank.png') }}" alt="metronic" />
 										</div>
 										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
 											<div class="menu-item px-3">
 												<div class="menu-content d-flex align-items-center px-3">
 													<div class="symbol symbol-50px me-5">
-														<img alt="Logo" src="assets/media/avatars/300-1.jpg" />
+														<img alt="Logo" src="{{ asset('/metronic/assets/media/blank.png') }}" />
 													</div>
 													<div class="d-flex flex-column">
-														<div class="fw-bold d-flex align-items-center fs-5">جلالی
-														<span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">حرفه ای</span></div>
-														<a href="#" class="fw-semibold text-muted text-hover-primary fs-7">max@kt.com</a>
+														<div class="fw-bold d-flex align-items-center fs-5">{{ auth()->user()->full_name }}
+														<span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">{{ Auth::getDefaultDriver() == 'admin' ? 'مدیر' : (Auth::getDefaultDriver() ==
+														'teacher' ? 'استاد' : 'دانشجو')}}</span></div>
+														<a href="#" class="fw-semibold text-muted text-hover-primary fs-7">{{ auth()->user()->mobile }}</a>
 													</div>
 												</div>
 											</div>
 											<div class="separator my-2"></div>
 											<div class="menu-item px-5">
-												<a href="../../demo13/dist/account/overview.html" class="menu-link px-5">پروفایل من</a>
-											</div>
-											<div class="separator my-2"></div>
-
-											<div class="menu-item px-5 my-1">
-												<a href="../../demo13/dist/account/settings.html" class="menu-link px-5">اکانت تنظیمات</a>
-											</div>
-											<div class="menu-item px-5">
-												<a href="../../demo13/dist/authentication/layouts/corporate/sign-in.html" class="menu-link px-5">خروج</a>
+												<a href="{{ route('panel.' . Auth::getDefaultDriver() . '.logout') }}" class="menu-link px-5">خروج</a>
 											</div>
 										</div>
 									</div>
@@ -160,33 +150,31 @@
 							</div>
 						</div>
 					</div>
-					<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-						<div class="toolbar" id="kt_toolbar">
-							<div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-								<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">
-									<h1 class="d-flex align-items-center text-dark fw-bold my-1 fs-3">پیش فرض</h1>
-									<span class="h-20px border-gray-200 border-start mx-4"></span>
-									<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
-										<li class="breadcrumb-item text-muted">
-											<a href="../../demo13/dist/index.html" class="text-muted text-hover-primary">خانه</a>
-										</li>
-										<li class="breadcrumb-item">
-											<span class="bullet bg-gray-200 w-5px h-2px"></span>
-										</li>
-										<li class="breadcrumb-item text-muted">داشبورد ها</li>
-										<li class="breadcrumb-item">
-											<span class="bullet bg-gray-200 w-5px h-2px"></span>
-										</li>
-										<li class="breadcrumb-item text-dark">پیش فرض</li>
-									</ul>
-								</div>
-								<div class="d-flex align-items-center py-1">
-									<a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button">ساختن</a>
-								</div>
-							</div>
-						</div>
+					<div class="content d-flex flex-column flex-column-fluid mt-0 pt-0" id="kt_content">
+{{--						<div class="toolbar" id="kt_toolbar">--}}
+{{--							<div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">--}}
+{{--								<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">--}}
+{{--									<h1 class="d-flex align-items-center text-dark fw-bold my-1 fs-3">پیش فرض</h1>--}}
+{{--									<span class="h-20px border-gray-200 border-start mx-4"></span>--}}
+{{--									<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">--}}
+{{--										<li class="breadcrumb-item text-muted">--}}
+{{--											<a href="../../demo13/dist/index.html" class="text-muted text-hover-primary">خانه</a>--}}
+{{--										</li>--}}
+{{--										<li class="breadcrumb-item">--}}
+{{--											<span class="bullet bg-gray-200 w-5px h-2px"></span>--}}
+{{--										</li>--}}
+{{--										<li class="breadcrumb-item text-muted">داشبورد ها</li>--}}
+{{--										<li class="breadcrumb-item">--}}
+{{--											<span class="bullet bg-gray-200 w-5px h-2px"></span>--}}
+{{--										</li>--}}
+{{--										<li class="breadcrumb-item text-dark">پیش فرض</li>--}}
+{{--									</ul>--}}
+{{--								</div>--}}
+{{--							</div>--}}
+{{--						</div>--}}
 						<div class="post d-flex flex-column-fluid" id="kt_post">
 							<div id="kt_content_container" class="container-fluid">
+                                @include('partials.alerts')
                                 @yield('body')
 							</div>
 						</div>
@@ -194,12 +182,12 @@
 					<div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
 						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
 							<div class="text-dark order-2 order-md-1">
-								<span class="text-muted fw-semibold me-1">2022&copy;</span>
-								<a href="" target="_blank" class="text-gray-800 text-hover-primary">Keenthemes</a>
+								<span class="text-muted fw-semibold me-1">2023&copy;</span>
+								<a href="" target="_blank" class="text-gray-800 text-hover-primary">{{ env('APP_NAME') }}</a>
 							</div>
 							<ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-								<li class="menu-item">
-									<a href="https://keenthemes.com" target="_blank" class="menu-link px-2">درباره</a>
+								<li class="menu-item menu-link px-2">
+									<span>Developed by</span> <a href="https://amyr.ir" target="_blank">AMYR</a>
 								</li>
 							</ul>
 						</div>
@@ -221,6 +209,9 @@
 		<script src="{{ asset("/metronic/assets/js/scripts.bundle.js") }}"></script>
 		<script src="{{ asset("/metronic/assets/js/widgets.bundle.js") }}"></script>
 		<script src="{{ asset("/metronic/assets/js/custom/widgets.js") }}"></script>
+        <script src="{{ asset("/metronic/assets/js/custom/mds.bs.datetimepicker.js") }}"></script>
+
+        @yield('js')
 	</body>
 
 </html>

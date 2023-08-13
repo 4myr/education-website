@@ -41,13 +41,13 @@ class LoginController extends Controller
 
     private function studentLogin(Request $request)
     {
-        $loginResult = \Auth::guard('teacher')->attempt([
+        $loginResult = \Auth::guard('student')->attempt([
             'mobile' => $request->get('mobile'),
             'password' => $request->get('password')
         ]);
 
         if ($loginResult)
-            return redirect()->route('panel.teacher.index');
+            return redirect()->route('panel.student.index');
         return back()->with('error', 'شماره موبایل یا رمز عبور صحیح نیست!');
     }
 

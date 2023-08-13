@@ -10,7 +10,7 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = News::all();
+        $news = News::all()->sortByDesc('created_at');
         return view('panel.admin.news.index', compact('news'));
     }
 
@@ -21,8 +21,14 @@ class NewsController extends Controller
 
     public function store(Request $request)
     {
-        News::create($request->all());
-        return redirect()->route('panel.admin.news.index');
+        News::create([
+            'title' => $request->post('title'),
+            'content' => $request->post('content'),
+            'is_active' => $request->post('is_active'),
+            'image' => $request->file('image') ? $request->file('image')->store('news', 'public') : null,
+            'admin_id' => \Auth::guard('admin')->id()
+        ]);
+        return redirect()->route('panel.admin.news.index')->with('success', 'خبر با موفقیت ایجاد شد.');
     }
 
     public function show(News $news)
@@ -37,13 +43,18 @@ class NewsController extends Controller
 
     public function update(Request $request, News $news)
     {
-        $news->update($request->all());
-        return redirect()->route('panel.admin.news.index', $news->id);
+        $news->update([
+            'title' => $request->post('title'),
+            'content' => $request->post('content'),
+            'is_active' => $request->post('is_active'),
+            'image' => $request->file('image') ? $request->file('image')->store('news', 'public') : $news->image,
+        ]);
+        return redirect()->route('panel.admin.news.index', $news->id)->with('success', 'خبر با موفقیت ویرایش شد.');
     }
 
     public function destroy(News $news)
     {
         $news->delete();
-        return redirect()->route('panel.admin.news.index');
+        return redirect()->route('panel.admin.news.index')->with('success', 'خبر با موفقیت حذف شد.');
     }
 }

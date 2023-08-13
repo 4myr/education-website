@@ -19,10 +19,10 @@
         <div class="fv-row mb-3">
             <input type="password" placeholder="رمز عبور" name="password" autocomplete="off" class="form-control bg-transparent" />
         </div>
-        <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
-            <div></div>
-            <a href="#" class="link-primary">فراموشی رمز عبور</a>
-        </div>
+{{--        <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">--}}
+{{--            <div></div>--}}
+{{--            <a href="#" class="link-primary">فراموشی رمز عبور</a>--}}
+{{--        </div>--}}
         <div class="d-grid mb-10">
             <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
                 <span class="indicator-label">ورود</span>

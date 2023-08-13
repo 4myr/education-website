@@ -10,4 +10,10 @@ class DashboardController extends Controller
     {
         return view('panel.student.dashboard.index');
     }
+
+    public function logout()
+    {
+        auth()->guard('student')->logout();
+        return redirect()->route('login', ['type' => 'student']);
+    }
 }

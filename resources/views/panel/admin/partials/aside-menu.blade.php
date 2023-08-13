@@ -12,38 +12,83 @@
 
             <div class="menu-item">
                 <a class="menu-link {{ request()->is('panel/admin/news*') ? 'active' : '' }}" href={{ route('panel.admin.news.index') }}>
-                    <span class="menu-bullet">
-                        <span class="bullet bullet-dot"></span>
+                    <span class="menu-icon">
+                        <i class="bi bi-newspaper fs-3"></i>
                     </span>
                     <span class="menu-title">اخبار</span>
                 </a>
             </div>
 
-            <div class="menu-item pt-5">
-                <div class="menu-content">
-                    <span class="menu-heading fw-bold text-uppercase fs-7">صفحات</span>
-                </div>
+            <div class="menu-item">
+                <a class="menu-link {{ request()->is('panel/admin/students*') ? 'active' : '' }}" href={{ route('panel.admin.students.index') }}>
+                    <span class="menu-icon">
+                        <i class="las la-user-graduate fs-3"></i>
+                    </span>
+                    <span class="menu-title">دانشجویان</span>
+                </a>
             </div>
 
-
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                <span class="menu-link">
+            <div class="menu-item">
+                <a class="menu-link {{ request()->is('panel/admin/teachers*') ? 'active' : '' }}" href={{ route('panel.admin.teachers.index') }}>
                     <span class="menu-icon">
-                        <i class="bi bi-person-lines-fill fs-3"></i>
+                        <i class="las la-chalkboard-teacher fs-3"></i>
                     </span>
-                    <span class="menu-title">کاربر پروفایل</span>
-                    <span class="menu-arrow"></span>
-                </span>
-                <div class="menu-sub menu-sub-accordion">
-                    <div class="menu-item">
-                        <a class="menu-link" href="../../demo13/dist/pages/user-profile/overview.html">
-                            <span class="menu-bullet">
-                                <span class="bullet bullet-dot"></span>
-                            </span>
-                            <span class="menu-title">بررسی اجمالی</span>
-                        </a>
-                    </div>
-                </div>
+                    <span class="menu-title">اساتید</span>
+                </a>
+            </div>
+
+            <div class="menu-item">
+                <a class="menu-link {{ request()->is('panel/admin/admins*') ? 'active' : '' }}" href={{ route('panel.admin.admins.index') }}>
+                    <span class="menu-icon">
+                        <i class="las la-user-tie fs-3"></i>
+                    </span>
+                    <span class="menu-title">مدیران سیستم</span>
+                </a>
+            </div>
+
+            <div class="menu-item">
+                <a class="menu-link {{ request()->is('panel/admin/terms*') ? 'active' : '' }}" href={{ route('panel.admin.terms.index') }}>
+                    <span class="menu-icon">
+                        <i class="las la-folder-open fs-3"></i>
+                    </span>
+                    <span class="menu-title">ترم‌ها</span>
+                </a>
+            </div>
+
+            <div class="menu-item">
+                <a class="menu-link {{ request()->is('panel/admin/fields*') ? 'active' : '' }}" href={{ route('panel.admin.fields.index') }}>
+                    <span class="menu-icon">
+                        <i class="las la-graduation-cap fs-3"></i>
+                    </span>
+                    <span class="menu-title">رشته‌ها</span>
+                </a>
+            </div>
+
+            <div class="menu-item">
+                <a class="menu-link {{ request()->is('panel/admin/lecture-groups*') ? 'active' : '' }}" href={{ route('panel.admin.lecture-groups.index') }}>
+                    <span class="menu-icon">
+                        <i class="las la-book fs-3"></i>
+                    </span>
+                    <span class="menu-title">گروه‌های درسی</span>
+                </a>
+            </div>
+
+            <div class="menu-item">
+                <a class="menu-link {{ request()->is('panel/admin/lectures*') ? 'active' : '' }}" href={{ route('panel.admin.lectures.index') }}>
+                    <span class="menu-icon">
+                        <i class="las la-book-reader fs-3"></i>
+                    </span>
+                    <span class="menu-title">درس‌ها</span>
+                </a>
+            </div>
+
+            <div class="menu-item">
+                <a class="menu-link {{ request()->is('panel/admin/settings*') ? 'active' : '' }}" href={{ route('panel.admin.settings.index') }}>
+                    <span class="menu-icon">
+                        <i class="las la-tools fs-3"></i>
+                    </span>
+                    <span class="menu-title">تنظیمات</span>
+                </a>
             </div>
         </div>
     </div>
