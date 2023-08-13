@@ -37,4 +37,9 @@ class Lecture extends Model
     {
         return $this->hasMany(LectureSession::class);
     }
+
+    public function students()
+    {
+        return $this->hasMany(LectureStudent::class);
+    }
 }

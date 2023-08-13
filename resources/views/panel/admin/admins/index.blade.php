@@ -30,8 +30,8 @@
                     <thead>
                         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                             <th class="min-w-40px">#</th>
-                            <th class="min-w-300px" style="width: 171.453px;">نام</th>
-                            <th class="min-w-40px"style="width: 212.242px;">نام خانوادگی</th>
+                            <th class="min-w-300px" >نام</th>
+                            <th class="min-w-40px">نام خانوادگی</th>
                             <th class="min-w-40px">موبایل</th>
                             <th class="min-w-40px">نقش</th>
                             <th class="min-w-40px">تاریخ ایجاد</th>

@@ -14,6 +14,10 @@ class LectureSession extends Model
         'files'
     ];
 
+    protected $casts = [
+        'files' => 'array'
+    ];
+
     public static function bulkCreate($lectureId, $order): void
     {
         self::create([

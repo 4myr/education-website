@@ -30,10 +30,10 @@
                     <thead>
                         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                             <th class="min-w-40px">#</th>
-                            <th class="min-w-300px" style="width: 171.453px;">نام</th>
-                            <th class="min-w-40px"style="width: 212.242px;">کد</th>
-                            <th class="min-w-40px"style="width: 212.242px;">رشته</th>
-                            <th class="min-w-40px"style="width: 212.242px;">وضعیت</th>
+                            <th class="min-w-300px" >نام</th>
+                            <th class="min-w-40px">کد</th>
+                            <th class="min-w-40px">رشته</th>
+                            <th class="min-w-40px">وضعیت</th>
                             <th class="min-w-40px">تاریخ ایجاد</th>
                             <th class="text-end min-w-70px">عملیات</th>
                         </tr>

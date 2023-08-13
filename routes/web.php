@@ -35,11 +35,48 @@ Route::group(['prefix' => 'panel'], function() {
             'edit' => 'panel.teacher.lectures.edit',
             'update' => 'panel.teacher.lectures.update',
         ])->except('destroy');
+
+        Route::patch('/sessions/{session}', [\App\Http\Controllers\Teacher\SessionsController::class, 'update'])->name('panel.teacher.sessions.update');
+
+
+        Route::get('/lecture-students/{lecture}', [\App\Http\Controllers\Teacher\LectureStudentsController::class, 'index'])->name('panel.teacher.lecture-students.index');
+        Route::patch('/lecture-students/{lecture}', [\App\Http\Controllers\Teacher\LectureStudentsController::class, 'update'])->name('panel.teacher.lecture-students.update');
+
+
+        Route::get('/exam/all', [\App\Http\Controllers\Teacher\ExamController::class, 'all'])->name('panel.teacher.exam.all');
+        Route::get('/exam/{exam}/students', [\App\Http\Controllers\Teacher\ExamController::class, 'students'])->name('panel.teacher.exam.students');
+        Route::get('/exam/{exam}/students/{student}', [\App\Http\Controllers\Teacher\ExamController::class, 'check'])->name('panel.teacher.exam.students.check');
+        Route::patch('/exam/{exam}/students/{student}', [\App\Http\Controllers\Teacher\ExamController::class, 'checkDone'])->name('panel.teacher.exam.students.check');
+
+        Route::resource('/exam/{lecture}', \App\Http\Controllers\Teacher\ExamController::class, ['parameters' => ['{lecture}' => 'exam']])->names([
+            'index' => 'panel.teacher.exam.index',
+            'create' => 'panel.teacher.exam.create',
+            'store' => 'panel.teacher.exam.store',
+            'show' => 'panel.teacher.exam.show',
+            'edit' => 'panel.teacher.exam.edit',
+            'update' => 'panel.teacher.exam.update',
+        ])->except('destroy');
+
     });
 
     Route::group(['prefix' => 'student', 'middleware' => 'auth:student'], function() {
         Route::get('/', [\App\Http\Controllers\Student\DashboardController::class, 'index'])->name('panel.student.index');
         Route::get('/logout',[\App\Http\Controllers\Student\DashboardController::class, 'logout'])->name('panel.student.logout');
+
+
+        Route::resource('/lectures', \App\Http\Controllers\Student\LecturesController::class)->names([
+            'index' => 'panel.student.lectures.index',
+            'show' => 'panel.student.lectures.show',
+        ])->except('destroy', 'edit', 'update', 'store', 'create');
+
+        Route::patch('/sessions/{session}', [\App\Http\Controllers\Student\SessionsController::class, 'update'])->name('panel.student.sessions.update');
+
+
+        Route::get('/exam/all', [\App\Http\Controllers\Student\ExamController::class, 'all'])->name('panel.student.exam.all');
+        Route::get('/exam/{exam}', [\App\Http\Controllers\Student\ExamController::class, 'show'])->name('panel.student.exam.show');
+        Route::patch('/exam/{exam}', [\App\Http\Controllers\Student\ExamController::class, 'answer'])->name('panel.student.exam.answer');
+
+
     });
 
     Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
@@ -147,6 +184,18 @@ Route::group(['prefix' => 'panel'], function() {
 
         Route::get('/lectures/{lecture}/delete', [\App\Http\Controllers\Admin\LecturesController::class, 'destroy'])
             ->name('panel.admin.lectures.destroy');
+
+        Route::resource('/lecture-students/{lecture}', \App\Http\Controllers\Admin\LectureStudentsController::class)->names([
+            'index' => 'panel.admin.lecture-students.index',
+            'create' => 'panel.admin.lecture-students.create',
+            'store' => 'panel.admin.lecture-students.store',
+        ])->except('destroy', 'show', 'edit', 'update');
+
+        Route::get('/lecture-students/{lectureStudent}/delete', [\App\Http\Controllers\Admin\LectureStudentsController::class, 'destroy'])
+            ->name('panel.admin.lecture-students.destroy');
+
+        Route::get('/settings', [\App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('panel.admin.settings.index');
+        Route::patch('/settings', [\App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('panel.admin.settings.update');
 
     });
 });

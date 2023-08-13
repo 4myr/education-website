@@ -81,6 +81,15 @@
                     <span class="menu-title">درس‌ها</span>
                 </a>
             </div>
+
+            <div class="menu-item">
+                <a class="menu-link {{ request()->is('panel/admin/settings*') ? 'active' : '' }}" href={{ route('panel.admin.settings.index') }}>
+                    <span class="menu-icon">
+                        <i class="las la-tools fs-3"></i>
+                    </span>
+                    <span class="menu-title">تنظیمات</span>
+                </a>
+            </div>
         </div>
     </div>
 </div>

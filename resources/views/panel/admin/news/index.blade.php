@@ -33,10 +33,10 @@
                                 #
                             </th>
                             <th class="min-w-300px"
-                                style="width: 171.453px;">عنوان
+                                >عنوان
                             </th>
                             <th class="min-w-40px"
-                                style="width: 212.242px;">نویسنده
+                                >نویسنده
                             </th>
                             <th class="min-w-40px">وضعیت
                             </th>

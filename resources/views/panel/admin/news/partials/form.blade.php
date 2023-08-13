@@ -56,7 +56,7 @@
     <div class="card card-flush py-4">
         <div class="card-header">
             <div class="card-title">
-                <h2>عمومی</h2>
+                <h2>{{ request()->is('*create*') ? 'ایجاد خبر' : 'ویرایش خبر' }}</h2>
             </div>
         </div>
         <div class="card-body pt-0">

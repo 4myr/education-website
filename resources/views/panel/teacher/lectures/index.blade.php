@@ -20,18 +20,16 @@
                 </div>
             </div>
             <div class="card-toolbar">
-{{--                <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">--}}
-{{--                    <a href="{{ route('panel.teacher.lectures.create') }}" class="btn btn-primary">ایجاد درس</a>--}}
-{{--                </div>--}}
             </div>
         </div>
         <div class="card-body pt-0">
                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
                     <thead>
                         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                            <th class="min-w-300px" style="width: 171.453px;">درس</th>
-                            <th class="min-w-40px"style="width: 212.242px;">ظرفیت</th>
-                            <th class="min-w-40px"style="width: 212.242px;">زمان برگزاری</th>
+                            <th class="min-w-40px">درس</th>
+                            <th class="min-w-40px">تعداد دانشجویان</th>
+                            <th class="min-w-40px">ظرفیت</th>
+                            <th class="min-w-40px">زمان برگزاری</th>
                             <th class="text-end min-w-70px">عملیات</th>
                         </tr>
 
@@ -43,14 +41,18 @@
                                     {{ $item->lectureGroup->name }} ({{ $item->code }})
                                 </td>
                                 <td>
+                                    {{ $item->students->count() }}
+                                </td>
+                                <td>
                                     {{ $item->capacity }}
                                 </td>
                                 <td>
                                     {{ $item->holding_day }} ساعت {{ $item->holding_time }}
                                 </td>
                                 <td class="text-end">
-                                    <a href="{{ $item->link }}" target="_blank" class="btn btn-warning btn-sm {{ !$item->link ? 'disabled' : '' }}">ورود به کلاس</a>
-                                    <a href="{{ route('panel.teacher.lectures.show', $item->id) }}" class="btn btn-primary btn-sm">مشاهده</a>
+                                    <a href="{{ $item->link }}" target="_blank" class="btn btn- btn-warning btn-sm {{ !$item->link ? 'disabled' : '' }}">ورود به کلاس</a>
+                                    <a href="{{ route('panel.teacher.lecture-students.index', $item->id) }}" class="btn btn- btn-primary btn-sm">دانشجویان</a>
+                                    <a href="{{ route('panel.teacher.lectures.show', $item->id) }}" class="btn btn- btn-primary btn-sm">جلسات</a>
                                 </td>
                             </tr>
                         @endforeach

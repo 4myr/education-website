@@ -24,4 +24,14 @@ class Student extends Authenticatable
     {
         return $this->first_name . " " . $this->last_name;
     }
+
+    public function field()
+    {
+        return $this->belongsTo(Field::class);
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
 }

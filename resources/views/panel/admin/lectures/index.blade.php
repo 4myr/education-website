@@ -30,13 +30,13 @@
                     <thead>
                         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                             <th class="min-w-40px">#</th>
-                            <th class="min-w-300px" style="width: 171.453px;">درس</th>
-                            <th class="min-w-40px"style="width: 212.242px;">کد</th>
-                            <th class="min-w-40px"style="width: 212.242px;">ترم</th>
-                            <th class="min-w-40px"style="width: 212.242px;">استاد</th>
-                            <th class="min-w-40px"style="width: 212.242px;">ظرفیت</th>
-                            <th class="min-w-40px"style="width: 212.242px;">زمان برگزاری</th>
-                            <th class="min-w-40px"style="width: 212.242px;">وضعیت</th>
+                            <th class="min-w-300px" >درس</th>
+                            <th class="min-w-40px">کد</th>
+                            <th class="min-w-40px">ترم</th>
+                            <th class="min-w-40px">استاد</th>
+                            <th class="min-w-40px">ظرفیت</th>
+                            <th class="min-w-40px">زمان برگزاری</th>
+                            <th class="min-w-40px">وضعیت</th>
                             <th class="min-w-40px">تاریخ ایجاد</th>
                             <th class="text-end min-w-70px">عملیات</th>
                         </tr>
@@ -58,10 +58,10 @@
                                     {{ $item->term->title }}
                                 </td>
                                 <td>
-                                    {{ $item->teacher->full_name }}
+                                    {{ $item->teacher?->full_name }}
                                 </td>
                                 <td>
-                                    {{ $item->capacity }}
+                                    {{ $item->students->count() }}/{{ $item->capacity }}
                                 </td>
                                 <td>
                                     {{ $item->holding_day }} ساعت {{ $item->holding_time }}
@@ -83,6 +83,7 @@
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                                         <div class="menu-item px-3">
                                             <a href="{{ route('panel.admin.lectures.edit', $item) }}" class="menu-link px-3">ویرایش</a>
+                                            <a href="{{ route('panel.admin.lecture-students.index', $item) }}" class="menu-link px-3">دانشجویان</a>
                                         </div>
 {{--                                        <div class="menu-item px-3">--}}
 {{--                                            <a href="{{ route('panel.admin.lectures.destroy', $item) }}" class="menu-link px-3">حذف</a>--}}

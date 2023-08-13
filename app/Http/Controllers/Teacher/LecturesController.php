@@ -18,7 +18,6 @@ class LecturesController extends Controller
         return view('panel.teacher.lectures.index', compact('lectures'));
     }
 
-
     public function show(Lecture $lecture)
     {
         return view('panel.teacher.lectures.show', compact('lecture'));

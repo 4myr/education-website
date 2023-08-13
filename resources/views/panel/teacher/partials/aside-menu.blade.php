@@ -10,14 +10,26 @@
                 </a>
             </div>
 
-            <div class="menu-item">
-                <a class="menu-link {{ request()->is('panel/teacher/lectures*') ? 'active' : '' }}" href={{ route('panel.teacher.lectures.index') }}>
-                    <span class="menu-icon">
-                        <i class="las la-book-reader fs-3"></i>
-                    </span>
-                    <span class="menu-title">درس‌ها</span>
-                </a>
-            </div>
+
+            @if (auth()->guard('teacher')->user()->approved)
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->is('panel/teacher/lectures*') ? 'active' : '' }}" href={{ route('panel.teacher.lectures.index') }}>
+                        <span class="menu-icon">
+                            <i class="las la-book-reader fs-3"></i>
+                        </span>
+                        <span class="menu-title">درس‌ها</span>
+                    </a>
+                </div>
+
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->is('panel/teacher/exam*') ? 'active' : '' }}" href={{ route('panel.teacher.exam.all') }}>
+                        <span class="menu-icon">
+                            <i class="las la-question-circle fs-3"></i>
+                        </span>
+                        <span class="menu-title">آزمون</span>
+                    </a>
+                </div>
+            @endif
         </div>
     </div>
 </div>
