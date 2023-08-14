@@ -1,11 +1,11 @@
 version: '3'
 services:
-    php:
+    back:
         build:
             context: .
             dockerfile: Dockerfile
         image: php
-        container_name: php
+        container_name: back-php
         restart: unless-stopped
         tty: true
         environment:
@@ -13,16 +13,17 @@ services:
             SERVICE_TAGS: dev
         working_dir: /var/www
         volumes:
-            - ./back:/var/www
+            - .:/var/www
             - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
             - ./docker/php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
             - ./docker/php/opcache-blacklist.txt:/usr/local/etc/php/conf.d/opcache-blacklist.txt
             - ./vendor:/var/www/vendor
         networks:
             - app-network
+        ports:
+            - "9000:9000"
         depends_on:
             - mysql
-            - redis
     webserver:
         image: nginx:alpine
         container_name: webserver
@@ -34,14 +35,13 @@ services:
         networks:
             - app-network
         volumes:
-            - ./back:/var/www
+            - .:/var/www
             - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
             - "./public:/var/www/html/public:ro"
             - "./storage/app:/var/www/html/storage/app:ro"
             - ./vendor:/var/www/vendor
         depends_on:
             - mysql
-            - redis
         extra_hosts:
             - "host.docker.internal:host-gateway"
     mysql:

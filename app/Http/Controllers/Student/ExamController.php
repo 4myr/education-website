@@ -18,7 +18,7 @@ class ExamController
             $lectureStudent = $exam->lecture->students->where('student_id', auth('student')->id())?->first();
             $answeredScore = null;
             $exam->questions->map(function($question) use ($lectureStudent, &$answeredScore) {
-                $answer = $question->answers->where('lecture_student_id', $lectureStudent->id)->first();
+                $answer = $question->answers->where('student_id', $lectureStudent->id)->first();
                 if ($answer) {
                     $answeredScore = $answeredScore == null ? $answer->score : ($answeredScore + $answer->score);
                 }
@@ -43,7 +43,7 @@ class ExamController
                 "choice3" => $question->choice3,
                 "choice4" => $question->choice4,
                 "score" => $question->score,
-                "answer" => $question->answers->where('lecture_student_id', $student['id'])->first()?->toArray(),
+                "answer" => $question->answers->where('student_id', $student['id'])->first()?->toArray(),
             ];
         })->all();
         $student['answered'] = false;
@@ -59,6 +59,7 @@ class ExamController
         $student['answeredScore'] = $answeredScore;
 
         $student['status'] = 'not_started';
+
         if ($exam->start_at?->addMinutes($exam->time)->isPast()) {
             $student['status'] = 'finished';
         } else if ($exam->start_at->isPast() && $exam->start_at?->addMinutes($exam->time)->isFuture()) {
@@ -85,10 +86,9 @@ class ExamController
 
         $lectureStudent = $exam->lecture->students->where('student_id', auth('student')->id())?->first();
 
-
         Answer::query()->updateOrCreate([
             'question_id' => $questionId,
-            'lecture_student_id' => $lectureStudent->id
+            'student_id' => $lectureStudent->id
         ], [
             'answer' => $answer,
             'score' => 0

@@ -14,7 +14,7 @@ class SessionsController
         $data = [
             'is_held' => $request->post('is_held') == 'on'
         ];
-        if($request->files) {
+        if($request->get('files')) {
             $data['files'] = [...($session->files??[]), ...$this->uploadFiles($request)];
 
         }

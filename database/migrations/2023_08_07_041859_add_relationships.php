@@ -13,7 +13,7 @@ return new class extends Migration
     {
         // Add foreign key to 'answers' table
         Schema::table('answers', function (Blueprint $table) {
-            $table->foreign('lecture_student_id')->references('id')->on('lecture_students')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('lecture_students')->onDelete('cascade');
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
         });
 
@@ -46,9 +46,9 @@ return new class extends Migration
         });
 
         // Add foreign key to 'news' table
-        Schema::table('news', function (Blueprint $table) {
-            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
-        });
+//        Schema::table('news', function (Blueprint $table) {
+//            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
+//        });
 
         // Add foreign key to 'questions' table
         Schema::table('questions', function (Blueprint $table) {

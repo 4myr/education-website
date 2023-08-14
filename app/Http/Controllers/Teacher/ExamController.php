@@ -23,6 +23,7 @@ class ExamController
     }
     public function index(Lecture $lecture)
     {
+        return redirect()->route('panel.teacher.exam.all');
         return view('panel.teacher.exam.index', compact('lecture'));
     }
 
@@ -106,7 +107,7 @@ class ExamController
                 "choice3" => $question->choice3,
                 "choice4" => $question->choice4,
                 "score" => $question->score,
-                "answer" => $question->answers->where('lecture_student_id', $student['id'])->first()?->toArray(),
+                "answer" => $question->answers->where('student_id', $student['id'])->first()?->toArray(),
             ];
         })->all();
         $student['answered'] = false;
@@ -125,7 +126,7 @@ class ExamController
                     if (!$q['answer']) {
                         $q['answer'] = Answer::query()->updateOrCreate([
                             'question_id' => $q['id'],
-                            'lecture_student_id' => $student['id']
+                            'student_id' => $student['id']
                         ], [
                             'answer' => '',
                             'score' => 0
